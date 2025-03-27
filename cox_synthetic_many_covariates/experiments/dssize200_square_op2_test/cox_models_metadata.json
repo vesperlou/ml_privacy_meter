@@ -1,0 +1,162 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.974437148217636,
+        "test_acc": 0.6209536307961505,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9562554680664916,
+        "test_acc": 0.5970919324577861,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_1.pkl"
+    },
+    "2": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9366295264623955,
+        "test_acc": 0.6540742367669669,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_2.pkl"
+    },
+    "3": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9786953656929497,
+        "test_acc": 0.6736304549675023,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_3.pkl"
+    },
+    "4": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9441692931112111,
+        "test_acc": 0.5762174405436014,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_4.pkl"
+    },
+    "5": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9843714609286524,
+        "test_acc": 0.5366951823502927,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_5.pkl"
+    },
+    "6": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.959009009009009,
+        "test_acc": 0.5219368038190498,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_6.pkl"
+    },
+    "7": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9579449874971584,
+        "test_acc": 0.5371621621621622,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_7.pkl"
+    },
+    "8": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9582089552238806,
+        "test_acc": 0.5699020480854853,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_8.pkl"
+    },
+    "9": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9556990204808549,
+        "test_acc": 0.5161882893226177,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_9.pkl"
+    },
+    "10": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9798270893371758,
+        "test_acc": 0.6990291262135923,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_10.pkl"
+    },
+    "11": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9283402681460934,
+        "test_acc": 0.5994236311239193,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_11.pkl"
+    },
+    "12": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9561631944444444,
+        "test_acc": 0.4861372180451128,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_12.pkl"
+    },
+    "13": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9548872180451128,
+        "test_acc": 0.5334201388888888,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_13.pkl"
+    },
+    "14": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9539257169722614,
+        "test_acc": 0.6366013071895424,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_14.pkl"
+    },
+    "15": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9675381263616558,
+        "test_acc": 0.5606488011283498,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_15.pkl"
+    },
+    "16": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9928245270711024,
+        "test_acc": 0.7179426961014561,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_16.pkl"
+    },
+    "17": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9377642085486144,
+        "test_acc": 0.5590345727332029,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_17.pkl"
+    },
+    "18": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9856662933930571,
+        "test_acc": 0.6249714677014381,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_18.pkl"
+    },
+    "19": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9472723122574754,
+        "test_acc": 0.6094064949608062,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_square_op2_test/cox_model_19.pkl"
+    }
+}

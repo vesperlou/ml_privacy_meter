@@ -1,0 +1,50 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.7948787771514673,
+        "test_acc": 0.747486530022774,
+        "model_path": "heterogeneity/test_dir_6/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.8062730285693125,
+        "test_acc": 0.746153636685456,
+        "model_path": "heterogeneity/test_dir_6/cox_model_1.pkl"
+    },
+    "2": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.7942481871144945,
+        "test_acc": 0.7542512488043362,
+        "model_path": "heterogeneity/test_dir_6/cox_model_2.pkl"
+    },
+    "3": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.8064530414142488,
+        "test_acc": 0.7459014056396659,
+        "model_path": "heterogeneity/test_dir_6/cox_model_3.pkl"
+    },
+    "4": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.8047341594405084,
+        "test_acc": 0.7340778833681383,
+        "model_path": "heterogeneity/test_dir_6/cox_model_4.pkl"
+    },
+    "5": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.8039392461890875,
+        "test_acc": 0.7404874579423913,
+        "model_path": "heterogeneity/test_dir_6/cox_model_5.pkl"
+    }
+}

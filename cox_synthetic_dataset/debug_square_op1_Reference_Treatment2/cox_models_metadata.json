@@ -1,0 +1,162 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6004764198918687,
+        "test_acc": 0.615307196120591,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6201290086463241,
+        "test_acc": 0.5975500954624128,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_1.pkl"
+    },
+    "2": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6159706495153546,
+        "test_acc": 0.6012978947463165,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_2.pkl"
+    },
+    "3": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6025939893612233,
+        "test_acc": 0.6153818280641362,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_3.pkl"
+    },
+    "4": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6147940629798239,
+        "test_acc": 0.6005728574676062,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_4.pkl"
+    },
+    "5": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.5996635598999772,
+        "test_acc": 0.612378669108998,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_5.pkl"
+    },
+    "6": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6026790935343703,
+        "test_acc": 0.6138551922972312,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_6.pkl"
+    },
+    "7": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6141362490706994,
+        "test_acc": 0.6051530717813542,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_7.pkl"
+    },
+    "8": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6277004017945622,
+        "test_acc": 0.5892640645639939,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_8.pkl"
+    },
+    "9": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.5968007527640555,
+        "test_acc": 0.6074935586746185,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_9.pkl"
+    },
+    "10": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.615571951077042,
+        "test_acc": 0.6008793844308984,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_10.pkl"
+    },
+    "11": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6043315133951689,
+        "test_acc": 0.6137656478877037,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_11.pkl"
+    },
+    "12": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6155607235609769,
+        "test_acc": 0.6063197394889003,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_12.pkl"
+    },
+    "13": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6053365085378725,
+        "test_acc": 0.609253544960139,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_13.pkl"
+    },
+    "14": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6255763720520168,
+        "test_acc": 0.5872747122608342,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_14.pkl"
+    },
+    "15": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.5955368047074497,
+        "test_acc": 0.6224465505840864,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_15.pkl"
+    },
+    "16": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6055937318208261,
+        "test_acc": 0.6121661401493395,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_16.pkl"
+    },
+    "17": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6105776134405514,
+        "test_acc": 0.6045756980802792,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_17.pkl"
+    },
+    "18": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6083023272780331,
+        "test_acc": 0.6054910450698682,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_18.pkl"
+    },
+    "19": {
+        "model_name": "CoxPHFitter",
+        "num_train": 500,
+        "num_test": 500,
+        "train_acc": 0.6113953946073608,
+        "test_acc": 0.6027941927482309,
+        "model_path": "cox_synthetic_dataset/debug_square_op1_Reference_Treatment2/cox_model_19.pkl"
+    }
+}

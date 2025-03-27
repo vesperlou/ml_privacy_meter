@@ -1,0 +1,162 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6101420489218377,
+        "test_acc": 0.6166242062359976,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6174192171187688,
+        "test_acc": 0.6090770757134927,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_1.pkl"
+    },
+    "2": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6210199314031616,
+        "test_acc": 0.6052961643681994,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_2.pkl"
+    },
+    "3": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6065759871407815,
+        "test_acc": 0.6194701657640505,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_3.pkl"
+    },
+    "4": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.617453149806862,
+        "test_acc": 0.6085780398922732,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_4.pkl"
+    },
+    "5": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6094039586524421,
+        "test_acc": 0.6175253601863622,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_5.pkl"
+    },
+    "6": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6215735952521432,
+        "test_acc": 0.6048861669814944,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_6.pkl"
+    },
+    "7": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6058405506120331,
+        "test_acc": 0.6204679435373913,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_7.pkl"
+    },
+    "8": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6119078512161464,
+        "test_acc": 0.6147776370269421,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_8.pkl"
+    },
+    "9": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6159563418924516,
+        "test_acc": 0.609906622408659,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_9.pkl"
+    },
+    "10": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6153889197029416,
+        "test_acc": 0.61065151499995,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_10.pkl"
+    },
+    "11": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6119259355587344,
+        "test_acc": 0.6148048161546352,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_11.pkl"
+    },
+    "12": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6159199885843187,
+        "test_acc": 0.6081534550589729,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_12.pkl"
+    },
+    "13": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6104193638782396,
+        "test_acc": 0.6168660827206852,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_13.pkl"
+    },
+    "14": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6151305716083433,
+        "test_acc": 0.6091579700982963,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_14.pkl"
+    },
+    "15": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6134954521251668,
+        "test_acc": 0.6082851749701892,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_15.pkl"
+    },
+    "16": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6115609239449253,
+        "test_acc": 0.6163970034219697,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_16.pkl"
+    },
+    "17": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6165539745078956,
+        "test_acc": 0.6114878460438827,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_17.pkl"
+    },
+    "18": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6138686363781082,
+        "test_acc": 0.6132890024464887,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_18.pkl"
+    },
+    "19": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6130511630936485,
+        "test_acc": 0.6124797032697634,
+        "model_path": "cox_synthetic_dataset/diversity_train_Reference_audit_Treatment2/signal_square_option2/cox_model_19.pkl"
+    }
+}

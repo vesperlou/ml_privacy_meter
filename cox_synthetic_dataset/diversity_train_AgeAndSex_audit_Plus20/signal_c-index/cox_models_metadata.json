@@ -1,0 +1,162 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5976269944843284,
+        "test_acc": 0.5820884182441073,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5827209074690959,
+        "test_acc": 0.5981405597763487,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_1.pkl"
+    },
+    "2": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5896537263651144,
+        "test_acc": 0.5894973538647921,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_2.pkl"
+    },
+    "3": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5916453461495544,
+        "test_acc": 0.5886593414291705,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_3.pkl"
+    },
+    "4": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5881142753940413,
+        "test_acc": 0.5927385083142895,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_4.pkl"
+    },
+    "5": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5935055255845175,
+        "test_acc": 0.5842548404891235,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_5.pkl"
+    },
+    "6": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5918133619437618,
+        "test_acc": 0.5886268207767195,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_6.pkl"
+    },
+    "7": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5892965773063502,
+        "test_acc": 0.5890905463333435,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_7.pkl"
+    },
+    "8": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5867208325797548,
+        "test_acc": 0.5925147829241698,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_8.pkl"
+    },
+    "9": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5924980233569216,
+        "test_acc": 0.5858479920736646,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_9.pkl"
+    },
+    "10": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.590014442286702,
+        "test_acc": 0.5895097812304034,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_10.pkl"
+    },
+    "11": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5899736701028073,
+        "test_acc": 0.5901114427197746,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_11.pkl"
+    },
+    "12": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5917818566654143,
+        "test_acc": 0.5870410401218572,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_12.pkl"
+    },
+    "13": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5896125751016298,
+        "test_acc": 0.5892197111119417,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_13.pkl"
+    },
+    "14": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5983948519363971,
+        "test_acc": 0.580930166738083,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_14.pkl"
+    },
+    "15": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5815160112695904,
+        "test_acc": 0.5979201008625786,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_15.pkl"
+    },
+    "16": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.6007683669130424,
+        "test_acc": 0.5789235463124174,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_16.pkl"
+    },
+    "17": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5796450011877611,
+        "test_acc": 0.6004036106901327,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_17.pkl"
+    },
+    "18": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5837373223677017,
+        "test_acc": 0.5952194860865424,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_18.pkl"
+    },
+    "19": {
+        "model_name": "CoxPHFitter",
+        "num_train": 1500,
+        "num_test": 1500,
+        "train_acc": 0.5958213736755816,
+        "test_acc": 0.5845116973758517,
+        "model_path": "cox_synthetic_dataset/diversity_train_AgeAndSex_audit_Plus20/signal_c-index/cox_model_19.pkl"
+    }
+}

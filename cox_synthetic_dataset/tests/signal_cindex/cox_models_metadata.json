@@ -1,0 +1,18 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 10000,
+        "num_test": 10000,
+        "train_acc": 0.6069155096785054,
+        "test_acc": 0.6037671387790946,
+        "model_path": "cox_synthetic_dataset/signal_cindex/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 10000,
+        "num_test": 10000,
+        "train_acc": 0.6037981893295903,
+        "test_acc": 0.6069355715752526,
+        "model_path": "cox_synthetic_dataset/signal_cindex/cox_model_1.pkl"
+    }
+}

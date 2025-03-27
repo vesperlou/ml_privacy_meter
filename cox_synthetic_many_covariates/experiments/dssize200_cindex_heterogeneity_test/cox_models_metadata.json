@@ -1,0 +1,162 @@
+{
+    "0": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9563249603982802,
+        "test_acc": 0.5428700361010831,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_0.pkl"
+    },
+    "1": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9941335740072202,
+        "test_acc": 0.6003620728671645,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_1.pkl"
+    },
+    "2": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9583333333333334,
+        "test_acc": 0.5640473627556513,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_2.pkl"
+    },
+    "3": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9582346609257266,
+        "test_acc": 0.554047619047619,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_3.pkl"
+    },
+    "4": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9394748553627058,
+        "test_acc": 0.552463503649635,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_4.pkl"
+    },
+    "5": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9781021897810219,
+        "test_acc": 0.6537605696484201,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_5.pkl"
+    },
+    "6": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9696021457308895,
+        "test_acc": 0.6585086916742909,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_6.pkl"
+    },
+    "7": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9583714547118024,
+        "test_acc": 0.5301743406347788,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_7.pkl"
+    },
+    "8": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9441567214591309,
+        "test_acc": 0.5606579849211789,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_8.pkl"
+    },
+    "9": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9824080420379255,
+        "test_acc": 0.6356676424228778,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_9.pkl"
+    },
+    "10": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9416817359855335,
+        "test_acc": 0.5854652479058184,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_10.pkl"
+    },
+    "11": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9461172741679873,
+        "test_acc": 0.5375226039783002,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_11.pkl"
+    },
+    "12": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9500462534690102,
+        "test_acc": 0.5160647019720807,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_12.pkl"
+    },
+    "13": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9574562375360071,
+        "test_acc": 0.507631822386679,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_13.pkl"
+    },
+    "14": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9387980556783031,
+        "test_acc": 0.5421686746987951,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_14.pkl"
+    },
+    "15": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9916589434661723,
+        "test_acc": 0.6981882456915599,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_15.pkl"
+    },
+    "16": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9458889669711876,
+        "test_acc": 0.5323851203501094,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_16.pkl"
+    },
+    "17": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.936542669584245,
+        "test_acc": 0.5282267509955493,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_17.pkl"
+    },
+    "18": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9648403796376186,
+        "test_acc": 0.4682425978987584,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_18.pkl"
+    },
+    "19": {
+        "model_name": "CoxPHFitter",
+        "num_train": 100,
+        "num_test": 100,
+        "train_acc": 0.9594078319006686,
+        "test_acc": 0.524374460742019,
+        "model_path": "cox_synthetic_many_covariates/experiments/dssize200_cindex_heterogeneity_test/cox_model_19.pkl"
+    }
+}
