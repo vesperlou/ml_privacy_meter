@@ -676,7 +676,7 @@ def main():
     n_samples = 1000
     
     # Number of covariates to include in each dataset
-    n_covariates = 80
+    n_covariates = 2
     
     log_dir = "test"
     size = 1000 # auditing dataset size. (training size = size // 2)
@@ -684,7 +684,7 @@ def main():
 
     # Number of simulation runs
     #n_runs = 10000
-    n_runs = 3000
+    n_runs = 10000
 
         
     # Check if we have enough covariates

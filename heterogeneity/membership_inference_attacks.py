@@ -21,7 +21,6 @@ import numpy as np
 import torch.utils.data
 from sklearn.metrics import roc_curve, auc
 from torch.utils.data import Subset
-#from attacks import tune_offline_a, run_rmia, run_loss  # original Privacy Meter attacks file
 from visualize import plot_roc, plot_roc_log  # original Privacy Meter visualize file
 
 ## build model and dataset
