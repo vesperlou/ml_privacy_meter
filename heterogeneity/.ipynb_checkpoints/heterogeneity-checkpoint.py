@@ -35,6 +35,15 @@ import webbrowser
 from concurrent.futures import ProcessPoolExecutor
 import warnings
 import json
+# MIA resources
+from membership_inference_attacks import (
+    split_dataframe_for_training,
+    train_models,
+    sample_cox_auditing_dataset,
+    get_cox_model_signals_square,
+    audit_cox_models,
+    get_cox_model_signals_cindex
+)
 
 # Suppress warnings for cleaner output
 warnings.filterwarnings('ignore')
@@ -213,7 +222,7 @@ def surv_distance(data1, data2):
     # Return chi-square statistic as distance measure
     return results.test_statistic  # Higher value = more different
 
-def privacy_exposure(data1, data2):
+def privacy_exposure(data1, data2, save_all_files, log_dir, size, num_model_pairs):
     """
     Calculate privacy exposure using membership inference attack.
     
@@ -224,28 +233,43 @@ def privacy_exposure(data1, data2):
         float: AUC score for membership inference (higher = more privacy exposure)
     """
     try:
-        # Train a Cox proportional hazards model on dataset 1
-        cph = CoxPHFitter()
-        cph.fit(data1, duration_col='time', event_col='event')
+        # Prepare training data and heterogeneous dataset (auditing dataset = half from training + half from heterogeneous dataset)
+        base_training_data = data1[:size]
+        base_auditing_data = data2[:size]
+
+        # Split dataset randomly to construct training data
+        data_splits, memberships, training_indices = split_dataframe_for_training(base_training_data, num_model_pairs)
+
+        # Train cox models
+        models, metadata = train_models(data_splits, num_model_pairs, log_dir, save_all_files)
+
+        # Prepare auditing dataset and memberships
+        auditing_dataset, auditing_membership = sample_cox_auditing_dataset(training_indices, memberships, base_training_data, base_auditing_data)
+
+        # Compute attack signals
+        signals = get_cox_model_signals_square(models, auditing_dataset, log_dir, save_all_files)
+
+        # Get privacy exposure results
+        num_experiments = num_model_pairs * 2
+        target_model_indices = list(range(num_experiments))
+        #target_model_indices = [i for i in range(num_experiments) if i % 2 == 0]
+        average_auc = audit_cox_models(
+            target_model_indices,
+            signals,
+            auditing_membership,
+            log_dir,
+            save_all_files
+        )
         
-        # Calculate prediction scores on both datasets
-        scores1 = cph.predict_partial_hazard(data1)
-        scores2 = cph.predict_partial_hazard(data2)
+        if (save_all_files):
+            print(f"average AUC: {average_auc}")
+            
+        return average_auc
         
-        # Create combined dataset with labels for membership inference
-        # 1 = in training set, 0 = not in training set
-        combined_scores = np.concatenate([scores1, scores2])
-        membership = np.concatenate([np.ones(len(scores1)), np.zeros(len(scores2))])
-        
-        # Calculate ROC for membership inference attack
-        fpr, tpr, _ = roc_curve(membership, combined_scores)
-        roc_auc = auc(fpr, tpr)
-        
-        # Return AUC as privacy exposure metric
-        return roc_auc
     except Exception as e:
         print(f"Error in privacy_exposure: {e}")
         return np.nan
+
 
 def calculate_cindex(data1, data2):
     """
@@ -276,7 +300,7 @@ def calculate_cindex(data1, data2):
 # Simulation Functions
 #------------------------------------------------------------------------------
 
-def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples):
+def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, save_all_files, log_dir, size, num_model_pairs):
     """
     Run a single simulation iteration.
     
@@ -303,9 +327,9 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples):
             # Extract corresponding beta values
             subset_betas = betas[variables]
 
-            print("beta")
-            print(subset_betas)
-            print()
+            #print("beta")
+            #print(subset_betas)
+            #print()
             
             # Create a smaller parameter set for this dataset
             dataset_parameters = parameters.copy()
@@ -331,8 +355,9 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples):
             selected_betas.append(subset_betas.tolist())
 
             ##### Save dataset to parquet file
-            dataset_filename = f"sim_{i}_dataset_{dataset_idx}.parquet"
-            res.to_parquet(dataset_filename)
+            if (save_all_files):
+                dataset_filename = f"sim_{i}_dataset_{dataset_idx}.parquet"
+                res.to_parquet(dataset_filename)
             
         
         # Calculate distance metrics between datasets
@@ -341,23 +366,24 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples):
             'manhattan': cityblock(datasets[0]['betas'], datasets[1]['betas']),
             'cosine': cosine_distance(datasets[0]['betas'], datasets[1]['betas']),
             'survival': surv_distance(datasets[0]['data'], datasets[1]['data']),
-            'privacy': privacy_exposure(datasets[0]['data'], datasets[1]['data']),
+            'privacy': privacy_exposure(datasets[0]['data'], datasets[1]['data'], save_all_files, log_dir, size, num_model_pairs),
             'cindex': calculate_cindex(datasets[0]['data'], datasets[1]['data'])
         }
 
-        print()
-        print(distances)
-        print()
+        #print()
+        #print(distances)
+        #print()
 
-        ##### save distance to json
-        distances_filename = f"sim_{i}_distances.json"
-        with open(distances_filename, 'w') as f:
-            json.dump(distances, f, indent=4)
-            
-        betas_filename = f"sim_{i}_betas.json"
-        print(selected_betas)
-        with open(betas_filename, 'w') as f:
-            json.dump(selected_betas, f, indent=4)
+        if (save_all_files):
+            ##### save distance to json
+            distances_filename = f"sim_{i}_distances.json"
+            with open(distances_filename, 'w') as f:
+                json.dump(distances, f, indent=4)
+                
+            betas_filename = f"sim_{i}_betas.json"
+            print(selected_betas)
+            with open(betas_filename, 'w') as f:
+                json.dump(selected_betas, f, indent=4)
         
         # Return a single row of results
         return [i, distances['euclidean'], distances['manhattan'], distances['cosine'], 
@@ -479,7 +505,7 @@ def create_result_plots(results):
 # HTML Report Generation
 #------------------------------------------------------------------------------
 
-def create_html_report(results, all_plots):
+def create_html_report(results, all_plots, num_covariates, audit_size, simulation_times, num_models, sd):
     """
     Create an HTML report with simulation results and plots.
     
@@ -491,7 +517,7 @@ def create_html_report(results, all_plots):
         str: Path to the generated HTML file
     """
     # Define output file name
-    report_file = "cox_regression_simulation_report.html"
+    report_file = f"report_seed{sd}_covariates_{num_covariates}_auditsize_{audit_size}_num_models_{num_models}_simulation_{simulation_times}.html"
     
     # Create summary statistics
     summary_stats = results.drop('run', axis=1).describe().to_html()
@@ -607,11 +633,9 @@ def main():
     # Simulation Parameters
     #----------------------------------------------------------------------------
     # Set random seed for reproducibility
-    #np.random.seed(123)
+    sd = 123 # 123
+    np.random.seed(sd)
     
-    # Number of simulation runs
-    #n_runs = 10000
-    n_runs = 1
     
     # Define parameters for data generation
     parameters = {
@@ -647,13 +671,22 @@ def main():
     #----------------------------------------------------------------------------
     # Number of datasets to generate for each simulation
     n_datasets = 2
-    
-    # Number of covariates to include in each dataset
-    n_covariates = 10
-    
+
     # Number of samples in each dataset
     n_samples = 1000
     
+    # Number of covariates to include in each dataset
+    n_covariates = 80
+    
+    log_dir = "test"
+    size = 1000 # auditing dataset size. (training size = size // 2)
+    num_model_pairs = 3  # for each pair of data, how many models are tested. (number of models = 2 * num_model_pairs)
+
+    # Number of simulation runs
+    #n_runs = 10000
+    n_runs = 3000
+
+        
     # Check if we have enough covariates
     if n_covariates > parameters['covariates']['n']:
         raise ValueError("Too many covariates chosen for datasets")
@@ -664,9 +697,11 @@ def main():
     print(f"Running {n_runs} simulations in parallel...")
     
     # Determine number of processes to use (leave one core for system)
-    #n_processes = max(1, mp.cpu_count() - 1)
-    n_processes = 1
+    n_processes = max(1, mp.cpu_count() - 1)
     print(f"Using {n_processes} processes")
+
+    save_all_files = False
+    print(f"Save files: {save_all_files}")
     
     # Create a partial function with fixed parameters
     run_sim = partial(
@@ -675,7 +710,11 @@ def main():
         parameters=parameters, 
         n_datasets=n_datasets, 
         n_covariates=n_covariates, 
-        n_samples=n_samples
+        n_samples=n_samples,
+        save_all_files=save_all_files,
+        log_dir=log_dir,
+        size=size, 
+        num_model_pairs=num_model_pairs,
     )
     
     # Run the simulation in parallel
@@ -716,14 +755,14 @@ def main():
     #----------------------------------------------------------------------------
     # Generate HTML Report
     #----------------------------------------------------------------------------
-    report_file = create_html_report(results, all_plots)
+    report_file = create_html_report(results, all_plots, n_covariates, size, n_runs, num_model_pairs*2, sd)
     
     # Display message about report generation
     print(f"\nHTML report generated: {report_file}")
     print(f"Total execution time: {time.time() - start_time:.2f} seconds")
     
     # Open the HTML report in the default web browser
-    #webbrowser.open('file://' + os.path.realpath(report_file))
+    webbrowser.open('file://' + os.path.realpath(report_file))
 
 if __name__ == "__main__":
     main()
