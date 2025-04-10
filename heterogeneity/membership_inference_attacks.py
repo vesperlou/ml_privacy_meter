@@ -203,15 +203,15 @@ def get_cox_model_signals_square(model_list, data_list, log_dir, save_all_files)
                 if predicted_times[i] == float('inf') or predicted_times[i] >= true_times[i]:
                     sample_losses[i] = 0
                 else:
+                    '''
                     # option 1: underestimate signals
-                    #sample_losses[i] = (predicted_times[i] - true_times[i]) * (predicted_times[i] - true_times[i])
+                    sample_losses[i] = (true_times[i] - predicted_times[i]) * (true_times[i] - predicted_times[i])
+                    '''
                     
-                    # option 2: manually make signals larger
+                    # option 2: manually make signals larger. Question: how to properly choose correction_value?
                     correction_value = 100
-                    sample_losses[i] = (true_times[i] - predicted_times[i] + correction_value) * (true_times[i] - predicted_times[i] + correction_value)
-                    
-                    # option 3: cannot deal with infinite, must be postprocessed
-                    #sample_losses[i] = 256 #float('inf')
+                    sample_losses[i] = (true_times[i] - predicted_times[i] + correction_value) * 
+                                       (true_times[i] - predicted_times[i] + correction_value)
                     
         signals.append(sample_losses.reshape(-1, 1))
         

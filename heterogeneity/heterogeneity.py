@@ -82,10 +82,15 @@ def rlaplace(n, mu=0, b=0.8):
     Returns:
         numpy.ndarray: A vector of random values from the Laplace distribution
     """
+    print("betas selected from laplace distribution")
     # Generate uniform random values between -0.5 and 0.5
     u = np.random.uniform(-0.5, 0.5, n)
     # Transform to Laplace distribution using inverse CDF
     return mu - b * np.sign(u) * np.log(1 - 2 * np.abs(u))
+
+def random_distribution(n, lower_bound=-5, upper_bound=5):
+    print("betas selected from random distribution")
+    return np.random.uniform(lower_bound, upper_bound, n)
 
 def simulate_beta(n, distribution=rlaplace, **kwargs):
     """
@@ -327,6 +332,8 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, sa
             # Extract corresponding beta values
             subset_betas = betas[variables]
 
+            # generate betas here! replace the above two lines
+
             #print("beta")
             #print(subset_betas)
             #print()
@@ -505,7 +512,7 @@ def create_result_plots(results):
 # HTML Report Generation
 #------------------------------------------------------------------------------
 
-def create_html_report(results, all_plots, num_covariates, audit_size, simulation_times, num_models, sd):
+def create_html_report(results, all_plots, num_covariates, audit_size, simulation_times, num_models, sd, total):
     """
     Create an HTML report with simulation results and plots.
     
@@ -517,7 +524,7 @@ def create_html_report(results, all_plots, num_covariates, audit_size, simulatio
         str: Path to the generated HTML file
     """
     # Define output file name
-    report_file = f"report_seed{sd}_covariates_{num_covariates}_auditsize_{audit_size}_num_models_{num_models}_simulation_{simulation_times}.html"
+    report_file = f"0410_laplace_total{total}_seed{sd}_covariates_{num_covariates}_auditsize_{audit_size}_num_models_{num_models}_simulation_{simulation_times}.html"
     
     # Create summary statistics
     summary_stats = results.drop('run', axis=1).describe().to_html()
@@ -656,9 +663,16 @@ def main():
     }
     
     # Generate beta values using Laplace distribution
-    betas = rlaplace(parameters['covariates']['n'], 
-                     mu=parameters['covariates']['mu'], 
-                     b=parameters['covariates']['b'])
+    
+    betas = simulate_beta(parameters['covariates']['n'], 
+                          rlaplace,
+                          mu=parameters['covariates']['mu'], 
+                          b=parameters['covariates']['b'])
+    
+    '''
+    betas = simulate_beta(parameters['covariates']['n'], 
+                          random_distribution)
+    '''
     
     #----------------------------------------------------------------------------
     # Initial Data Visualization
@@ -676,7 +690,7 @@ def main():
     n_samples = 1000
     
     # Number of covariates to include in each dataset
-    n_covariates = 2
+    n_covariates = 100
     
     log_dir = "test"
     size = 1000 # auditing dataset size. (training size = size // 2)
@@ -684,7 +698,7 @@ def main():
 
     # Number of simulation runs
     #n_runs = 10000
-    n_runs = 10000
+    n_runs = 5000
 
         
     # Check if we have enough covariates
@@ -755,7 +769,7 @@ def main():
     #----------------------------------------------------------------------------
     # Generate HTML Report
     #----------------------------------------------------------------------------
-    report_file = create_html_report(results, all_plots, n_covariates, size, n_runs, num_model_pairs*2, sd)
+    report_file = create_html_report(results, all_plots, n_covariates, size, n_runs, num_model_pairs*2, sd, parameters['covariates']['n'])
     
     # Display message about report generation
     print(f"\nHTML report generated: {report_file}")
