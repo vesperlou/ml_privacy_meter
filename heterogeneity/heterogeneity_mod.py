@@ -88,8 +88,9 @@ def rlaplace(n, mu=0, b=0.8):
     # Transform to Laplace distribution using inverse CDF
     return mu - b * np.sign(u) * np.log(1 - 2 * np.abs(u))
 
-def random_distribution(n, lower_bound=-5, upper_bound=5):
-    print("betas selected from random distribution")
+# draw samples from a uniform distribution
+def uniform_distribution(n, lower_bound=-10, upper_bound=10):
+    #print("betas selected from uniform distribution")
     return np.random.uniform(lower_bound, upper_bound, n)
 
 def simulate_beta(n, distribution=rlaplace, **kwargs):
@@ -289,9 +290,9 @@ def privacy_exposure(data1, data2, save_all_files, log_dir, size, num_model_pair
         return np.nan, []
 
 
-def calculate_cindex(data1, data2):
+def calculate_cindex_auditing(data1, data2):
     """
-    Calculate C-index (concordance index) between two datasets.
+    Calculate C-index (concordance index) on the auditing dataset.
     
     Parameters:
         data1, data2 (pandas.DataFrame): Datasets with survival data (time and event columns)
@@ -314,11 +315,38 @@ def calculate_cindex(data1, data2):
         print(f"Error in calculate_cindex: {e}")
         return np.nan
 
+
+def calculate_cindex_training(data1, data2):
+    """
+    Calculate C-index (concordance index) on the training dataset.
+    
+    Parameters:
+        data1, data2 (pandas.DataFrame): Datasets with survival data (time and event columns)
+    
+    Returns:
+        float: C-index value (range: 0 to 1, where 0.5 is random and 1 is perfect prediction)
+    """
+    try:
+        # Train a Cox proportional hazards model on dataset 1
+        cph = CoxPHFitter()
+        cph.fit(data1, duration_col='time', event_col='event')
+        
+        # Calculate C-index on dataset 1
+        # This measures how well the model trained on data1
+        c_index = cph.score(data1, scoring_method="concordance_index")
+        
+        # Return C-index value
+        return c_index
+    except Exception as e:
+        print(f"Error in calculate_cindex: {e}")
+        return np.nan
+
+
 #------------------------------------------------------------------------------
 # Simulation Functions
 #------------------------------------------------------------------------------
 
-def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, save_all_files, log_dir, num_model_pairs):
+def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, save_all_files, log_dir, num_model_pairs, betas_distribution):
     """
     Run a single simulation iteration.
     
@@ -333,6 +361,7 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, sa
     Returns:
         list: Results of the simulation iteration [i, euclidean, manhattan, cosine, survival, privacy, cindex]
 """
+    
     try:
         #print(f"simulation {i}")
         #Generate multiple datasets directly instead of sampling from a single dataset
@@ -349,13 +378,20 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, sa
             subset_betas = betas[variables]
             '''
 
-            # generate betas here! replace the above two lines            
-            subset_betas = simulate_beta(parameters['covariates_hidden']['n'], 
-                            rlaplace,
-                            mu=parameters['covariates_hidden']['mu'], 
-                            b=parameters['covariates_hidden']['b'])
-            beta_list.append(subset_betas)
-            
+            # generate betas here! replace the above two lines
+            if betas_distribution == "laplace":  
+                subset_betas = simulate_beta(parameters['covariates_hidden']['n'], 
+                                rlaplace,
+                                mu=parameters['covariates_hidden']['mu'], 
+                                b=parameters['covariates_hidden']['b'])
+                beta_list.append(subset_betas)
+            elif betas_distribution == "uniform":
+                subset_betas = simulate_beta(parameters['covariates']['n'], 
+                               uniform_distribution)
+                beta_list.append(subset_betas)
+            else:
+                print(f"Error in simulation {i}: betas distribution not found!")
+                return [i, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan], np.empty(1)            
             
             # Create a smaller parameter set for this dataset
             dataset_parameters = parameters.copy()
@@ -397,15 +433,12 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, sa
             'cosine': cosine_distance(datasets[0]['betas'], datasets[1]['betas']),
             'survival': surv_distance(datasets[0]['data'], datasets[1]['data']),
             'privacy': privacy_exp,
-            'cindex': calculate_cindex(datasets[0]['data'], datasets[1]['data']),
+            'cindex_auditing': calculate_cindex_auditing(datasets[0]['data'], datasets[1]['data']),
+            'cindex_training': calculate_cindex_training(datasets[0]['data'], datasets[1]['data']),
             'AIC': average_AIC
         }
 
         beta_values = np.array(beta_list) 
-
-        #print()
-        #print(distances)
-        #print()
 
         if (save_all_files):
             ##### save distance to json
@@ -420,7 +453,7 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, sa
         
         # Return a single row of results
         return [i, distances['euclidean'], distances['manhattan'], distances['cosine'], 
-                distances['survival'], distances['privacy'], distances['cindex'], distances['AIC']], beta_values
+                distances['survival'], distances['privacy'], distances['cindex_auditing'], distances['cindex_training'], distances['AIC']], beta_values
     except Exception as e:
         print(f"Error in simulation {i}: {e}")
         return [i, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan, np.nan], np.empty(1)
@@ -488,36 +521,39 @@ def create_initial_plots(betas, parameters):
     
     return all_plots
 
+
 def create_result_plots(results):
     """
-    Create plots from simulation results.
+    Create plots from simulation results and save correlation coefficients.
     
     Parameters:
         results (pandas.DataFrame): DataFrame with simulation results
     
     Returns:
         dict: Dictionary of matplotlib figures
+        dict: Dictionary of correlation coefficients
     """
     all_plots = {}
+    correlation_dict = {}
     
     # Create scatterplots of all metrics vs privacy
-    metrics = ['euclidean', 'manhattan', 'cosine', 'survival', 'cindex', 'AIC']
+    metrics = ['euclidean', 'manhattan', 'cosine', 'survival', 'cindex_auditing', 'cindex_training', 'AIC']
+    
     for metric in metrics:
         fig, ax = plt.subplots(figsize=(10, 6))
         sns.regplot(x=metric, y='privacy', data=results, scatter_kws={'alpha': 0.6}, line_kws={'color': 'red'}, ax=ax)
         
-        # Add correlation coefficient to the plot
+        # Calculate and save correlation
         corr = results[[metric, 'privacy']].corr().iloc[0, 1]
-        ax.annotate(f'r = {corr:.3f}', 
-                   xy=(0.7, 0.1), 
-                   xycoords='axes fraction',
-                   fontsize=12)
+        correlation_dict[metric] = corr
         
+        # Add annotation to plot
+        ax.annotate(f'r = {corr:.3f}', xy=(0.7, 0.1), xycoords='axes fraction', fontsize=12)
         ax.set_title(f'{metric.capitalize()} vs Privacy')
         ax.set_xlabel(metric.capitalize())
         ax.set_ylabel('Privacy Metric (AUC)')
         all_plots[f'{metric}_vs_privacy'] = fig
-    
+
     # Create a violin plot of distance distributions
     # Reshape the data from wide to long format for violin plot
     distances_long = pd.melt(results.drop('run', axis=1), 
@@ -532,13 +568,13 @@ def create_result_plots(results):
     ax.set_ylabel('Distance Value')
     all_plots['distance_violin'] = fig
     
-    return all_plots
+    return all_plots, correlation_dict
 
 #------------------------------------------------------------------------------
 # HTML Report Generation
 #------------------------------------------------------------------------------
 
-def create_html_report(results, all_plots, num_covariates, audit_size, simulation_times, num_models, sd, hidden_cov):
+def create_html_report(results, all_plots, num_covariates, audit_size, simulation_times, num_models, sd, hidden_cov, log_dir):
     """
     Create an HTML report with simulation results and plots.
     
@@ -550,7 +586,7 @@ def create_html_report(results, all_plots, num_covariates, audit_size, simulatio
         str: Path to the generated HTML file
     """
     # Define output file name
-    report_file = f"updated_with_AIC_plots/in_loop_beta/hiddencov{hidden_cov}_seed{sd}_covariates_{num_covariates}_auditsize_{audit_size}_num_models_{num_models}_simulation_{simulation_times}.html"
+    report_file = f"{log_dir}/hiddencov{hidden_cov}_covariates_{num_covariates}_auditsize_{audit_size}_num_models_{num_models}_simulation_{simulation_times}_seed{sd}.html"
     
     # Create summary statistics
     summary_stats = results.drop('run', axis=1).describe().to_html()
@@ -655,7 +691,7 @@ def create_html_report(results, all_plots, num_covariates, audit_size, simulatio
 # Main Simulation Function
 #------------------------------------------------------------------------------
 
-def main():
+def quantify_privacy(sd, log_dir, n_hidden, n_cov, sample_size, n_runs, stats_summary_dir, betas_distribution):
     """
     Main function to run the simulation.
     """
@@ -666,24 +702,22 @@ def main():
     # Simulation Parameters
     #----------------------------------------------------------------------------
     # Set random seed for reproducibility
-    sd = 123 # 123
     np.random.seed(sd)
-    
     
     # Define parameters for data generation
     parameters = {
         # Parameters for covariate generation
         'covariates_hidden': {
-            'n': 20,                  # Number of covariates
+            'n': n_hidden,                  # Number of covariates
             'mu': 0,                   # Mean of Laplace distribution
             'b': 0.1                   # Scale parameter of Laplace distribution
         },
         'covariates': {
-            'n': 10                   # Number of hidden covariates
+            'n': n_cov                   # Number of hidden covariates
         },
         # Parameters for data generation
         'data': {
-            'n': 200,                 # Number of samples
+            'n': sample_size,                 # Number of samples
             'mean': 10,                # Mean of normal distribution
             'sd': 1                    # Standard deviation of normal distribution
         },
@@ -692,15 +726,15 @@ def main():
     }
     
     # Generate beta values using Laplace distribution
-    
     betas = simulate_beta(parameters['covariates_hidden']['n'], 
                           rlaplace,
                           mu=parameters['covariates_hidden']['mu'], 
                           b=parameters['covariates_hidden']['b'])
     
     '''
+    # Generate beta values from uniform distribution
     betas = simulate_beta(parameters['covariates']['n'], 
-                          random_distribution)
+                          uniform_distribution)
     '''
     
     #----------------------------------------------------------------------------
@@ -708,7 +742,7 @@ def main():
     #----------------------------------------------------------------------------
     
     # Generate plots for the first run to understand the data
-    all_plots = create_initial_plots(betas, parameters)
+    #all_plots = create_initial_plots(betas, parameters)
     
     #----------------------------------------------------------------------------
     # Dataset Generation Parameters
@@ -722,14 +756,7 @@ def main():
     
     # Number of datasets to generate for each simulation
     n_datasets = 2
-
-    log_dir = "test"
     num_model_pairs = 1  # for each pair of data, how many models are tested. (number of models = 2 * num_model_pairs)
-
-    # Number of simulation runs
-    #n_runs = 10000
-    n_runs = 500
-
         
     # Check if we have enough covariates
     if n_covariates > parameters['covariates_hidden']['n']:
@@ -759,6 +786,7 @@ def main():
         save_all_files=save_all_files,
         log_dir=log_dir,
         num_model_pairs=num_model_pairs,
+        betas_distribution=betas_distribution
     )
     
     # Run the simulation in parallel
@@ -783,7 +811,7 @@ def main():
     # Convert results_list to DataFrame
     results = pd.DataFrame(
         results_list, 
-        columns=['run', 'euclidean', 'manhattan', 'cosine', 'survival', 'privacy', 'cindex', 'AIC']
+        columns=['run', 'euclidean', 'manhattan', 'cosine', 'survival', 'privacy', 'cindex_auditing', 'cindex_training', 'AIC']
     )
     
     # Remove any rows with NaN values
@@ -793,16 +821,24 @@ def main():
     # Analysis and Visualization
     #----------------------------------------------------------------------------
     # Display summary statistics
+    summary_stats = results.drop('run', axis=1).describe()
     print("\nSummary statistics:")
-    print(results.drop('run', axis=1).describe())
+    print(summary_stats)
+    
+    # save summary stats to json file
+    stats_file = f"{stats_summary_dir}/statistics_hiddencov{n_hidden}_covariates_{n_cov}_auditsize_{sample_size}_simulation_{n_runs}_seed{sd}.json"
+    summary_stats.to_json(stats_file)   # JSON
     
     # Create correlation matrix
     corr_matrix = results.drop('run', axis=1).corr()
-    print("\nCorrelation matrix:")
-    print(corr_matrix)
     
     # Create result plots
-    all_plots = create_result_plots(results)
+    all_plots, corrs = create_result_plots(results)
+
+    # capture results and save to json file
+    correlation_file = f"{stats_summary_dir}/correlation_hiddencov{n_hidden}_covariates_{n_cov}_auditsize_{sample_size}_simulation_{n_runs}_seed{sd}.json"
+    with open(correlation_file, 'w') as f:
+        json.dump(corrs, f)
     
     # Combine all plots
     #all_plots.update(result_plots)
@@ -810,14 +846,51 @@ def main():
     #----------------------------------------------------------------------------
     # Generate HTML Report
     #----------------------------------------------------------------------------
-    report_file = create_html_report(results, all_plots, n_covariates, n_samples, n_runs, num_model_pairs, sd, parameters['covariates_hidden']['n'])
+    report_file = create_html_report(results, all_plots, n_covariates, n_samples, n_runs, num_model_pairs, sd, parameters['covariates_hidden']['n'], log_dir)
     
     # Display message about report generation
     print(f"\nHTML report generated: {report_file}")
     print(f"Total execution time: {time.time() - start_time:.2f} seconds")
     
     # Open the HTML report in the default web browser
-    webbrowser.open('file://' + os.path.realpath(report_file))
+    #webbrowser.open('file://' + os.path.realpath(report_file))
+
+
+def main():
+    sd = 123
+    n_runs = 500
+    betas_distribution = "uniform"
+
+    # sample size 1000
+    sample_size = 1000
+    log_dir = f"updated_test/in_loop_beta_{betas_distribution}/samplesize_{sample_size}"
+    stats_summary_dir = f"updated_test/in_loop_beta_{betas_distribution}/samplesize_{sample_size}/stats_summary"
+
+    os.makedirs(stats_summary_dir, exist_ok=True)
+    print(stats_summary_dir)
+
+    hidden_cov_list = [2, 4, 6, 8, 10, 20, 40, 80, 100]
+    cov_list = [[2], [2,4], [2,4,6], [2,4,6,8], [2, 4, 6,8, 10], [2,4,8,10,20], [2,4,8,10,20,30,40], [2,4,8,10,20,40,60,80], [2,4,8,10,20,40,60,80,100]]
+    
+    for i in range(len(hidden_cov_list)):
+        for n_cov in cov_list[i]:
+            quantify_privacy(sd, log_dir, hidden_cov_list[i], n_cov, sample_size, n_runs, stats_summary_dir, betas_distribution)
+
+    # sample size 100
+    sample_size = 100
+    log_dir = f"updated_test/in_loop_beta_{betas_distribution}/samplesize_{sample_size}"
+    stats_summary_dir = f"updated_test/in_loop_beta_{betas_distribution}/samplesize_{sample_size}/stats_summary"
+
+    os.makedirs(stats_summary_dir, exist_ok=True)
+    print(stats_summary_dir)
+
+    hidden_cov_list = [2, 4, 6, 8, 10, 20, 40, 80, 100]
+    cov_list = [[2], [2,4], [2,4,6], [2,4,6,8], [2, 4, 6, 8, 10], [2,4,8,10,20], [2,4,8,10,20,30,40], [2,4,8,10,20,40], [2,4,8,10,20,40]]
+    
+    for i in range(len(hidden_cov_list)):
+        for n_cov in cov_list[i]:
+            quantify_privacy(sd, log_dir, hidden_cov_list[i], n_cov, sample_size, n_runs, stats_summary_dir, betas_distribution)
+    
 
 if __name__ == "__main__":
     main()
