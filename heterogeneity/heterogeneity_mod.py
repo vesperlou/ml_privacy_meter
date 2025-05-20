@@ -93,6 +93,10 @@ def uniform_distribution(n, lower_bound=-10, upper_bound=10):
     #print("betas selected from uniform distribution")
     return np.random.uniform(lower_bound, upper_bound, n)
 
+def random_select(n, lower_bound=-10, upper_bound=10, num_candidates=1000):
+    candidates = np.linspace(lower_bound, upper_bound, num_candidates)
+    return np.random.choice(candidates, size=n, replace=True)
+
 def simulate_beta(n, distribution=rlaplace, **kwargs):
     """
     Generate beta coefficients from a specified distribution.
@@ -386,8 +390,12 @@ def run_simulation(i, betas, parameters, n_datasets, n_covariates, n_samples, sa
                                 b=parameters['covariates_hidden']['b'])
                 beta_list.append(subset_betas)
             elif betas_distribution == "uniform":
-                subset_betas = simulate_beta(parameters['covariates']['n'], 
+                subset_betas = simulate_beta(parameters['covariates_hidden']['n'], 
                                uniform_distribution)
+                beta_list.append(subset_betas)
+            elif betas_distribution == "random":
+                subset_betas = simulate_beta(parameters['covariates_hidden']['n'], 
+                               random_select)
                 beta_list.append(subset_betas)
             else:
                 print(f"Error in simulation {i}: betas distribution not found!")
@@ -724,18 +732,22 @@ def quantify_privacy(sd, log_dir, n_hidden, n_cov, sample_size, n_runs, stats_su
         'baseline_hazard': 0.01,       # Baseline hazard for Cox model
         'censoring_freq': 0.1          # Frequency of censoring
     }
-    
+
+    if betas_distribution == "laplace":
     # Generate beta values using Laplace distribution
-    betas = simulate_beta(parameters['covariates_hidden']['n'], 
-                          rlaplace,
-                          mu=parameters['covariates_hidden']['mu'], 
-                          b=parameters['covariates_hidden']['b'])
-    
-    '''
-    # Generate beta values from uniform distribution
-    betas = simulate_beta(parameters['covariates']['n'], 
-                          uniform_distribution)
-    '''
+        betas = simulate_beta(parameters['covariates_hidden']['n'], 
+                              rlaplace,
+                              mu=parameters['covariates_hidden']['mu'], 
+                              b=parameters['covariates_hidden']['b'])
+    elif betas_distribution == "uniform":
+        betas = simulate_beta(parameters['covariates_hidden']['n'], 
+                              uniform_distribution)
+    elif betas_distribution == "random":
+        betas = simulate_beta(parameters['covariates_hidden']['n'], 
+                              random_select)
+    else:
+        print("Betas distribution not found!")
+        return
     
     #----------------------------------------------------------------------------
     # Initial Data Visualization
@@ -859,7 +871,7 @@ def quantify_privacy(sd, log_dir, n_hidden, n_cov, sample_size, n_runs, stats_su
 def main():
     sd = 123
     n_runs = 500
-    betas_distribution = "uniform"
+    betas_distribution = "random"
 
     # sample size 1000
     sample_size = 1000
@@ -890,7 +902,7 @@ def main():
     for i in range(len(hidden_cov_list)):
         for n_cov in cov_list[i]:
             quantify_privacy(sd, log_dir, hidden_cov_list[i], n_cov, sample_size, n_runs, stats_summary_dir, betas_distribution)
-    
+
 
 if __name__ == "__main__":
     main()
